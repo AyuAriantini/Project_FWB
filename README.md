@@ -56,40 +56,43 @@ Fitur ini membantu pengambilan keputusan bisnis.
 
 Tabel Database, Field, dan Relasi
 1. tabel user
-| Field       | Tipe Data     | Keterangan            |
-| ----------- | ------------- | --------------------- |
-| id          | bigIncrements | Primary Key           |
-| name        | string        | Nama lengkap pengguna |
-| email       | string        | Email pengguna (unik) |
-| password    | string        | Password terenkripsi  |
-| role        | enum          | 'admin', 'cs', 'user' |
-| created\_at | timestamp     | Timestamp             |
-| updated\_at | timestamp     | Timestamp             |
+
+| Field       | Tipe Data                                  | Deskripsi                               |
+| ----------- | ------------------------------------------ | --------------------------------------- |
+| id          | BIGINT AUTO\_INCREMENT                     | ID unik untuk setiap pengguna           |
+| name        | VARCHAR(255)                               | Nama pengguna                           |
+| email       | VARCHAR(255) UNIQUE                        | Alamat email pengguna                   |
+| password    | VARCHAR(255)                               | Password pengguna (disarankan di-hash)  |
+| role        | ENUM('admin', 'customer\_service', 'user') | Peran pengguna                          |
+| created\_at | TIMESTAMP                                  | Waktu saat pengguna dibuat              |
+| updated\_at | TIMESTAMP                                  | Waktu saat pengguna terakhir diperbarui |
 
 2. Tabel Destinasi
+
 | Field       | Tipe Data    | Deskripsi                        |
 | ----------- | ------------ | -------------------------------- |
 | id          | BIGINT       | ID unik destinasi                |
-| name        | VARCHAR(255) | Nama tempat wisata               |
-| location    | VARCHAR(255) | Lokasi destinasi                 |
+| name        | VARCHAR(255) | Nama destinasi                   |
 | description | TEXT         | Deskripsi tempat                 |
 | image       | VARCHAR(255) | URL atau path gambar destinasi   |
 | created\_at | TIMESTAMP    | Tanggal data dibuat              |
 | updated\_at | TIMESTAMP    | Tanggal data terakhir diperbarui |
 
 3. Tabel Paket Wisata
-| Field          | Tipe Data     | Deskripsi                |
-| -------------- | ------------- | ------------------------ |
-| id             | BIGINT        | ID unik paket            |
-| title          | VARCHAR(255)  | Judul/nama paket         |
-| description    | TEXT          | Deskripsi paket          |
-| price          | DECIMAL(10,2) | Harga per orang          |
-| duration\_days | INTEGER       | Durasi wisata dalam hari |
-| image          | VARCHAR(255)  | Gambar ilustrasi paket   |
-| created\_at    | TIMESTAMP     | Waktu dibuat             |
-| updated\_at    | TIMESTAMP     | Waktu diubah             |
+
+| Field          | Tipe Data     | Deskripsi                        |
+| -------------- | ------------- | -------------------------------- |
+| id             | BIGINT        | ID unik paket                    |
+| title          | VARCHAR(255)  | Judul atau nama paket wisata     |
+| description    | TEXT          | Deskripsi paket                  |
+| price          | DECIMAL(10,2) | Harga per orang                  |
+| duration\_days | INTEGER       | Durasi wisata dalam hari         |
+| image          | VARCHAR(255)  | Gambar ilustrasi paket           |
+| created\_at    | TIMESTAMP     | Tanggal data dibuat              |
+| updated\_at    | TIMESTAMP     | Tanggal data terakhir diperbarui |
 
 4. Tabel Package_Destination (Pivot Paket ↔ Destinasi)
+
 | Field           | Tipe Data | Deskripsi                |
 | --------------- | --------- | ------------------------ |
 | id              | BIGINT    | ID unik                  |
@@ -97,29 +100,31 @@ Tabel Database, Field, dan Relasi
 | destination\_id | BIGINT    | FK ke tabel destinations |
 
 5. Tabel Bookings (Pemesanan)
-| Field          | Tipe Data                                 | Deskripsi              |
-| -------------- | ----------------------------------------- | ---------------------- |
-| id             | BIGINT                                    | ID unik pemesanan      |
-| user\_id       | BIGINT                                    | FK ke users            |
-| package\_id    | BIGINT                                    | FK ke packages         |
-| travel\_date   | DATE                                      | Tanggal keberangkatan  |
-| total\_persons | INTEGER                                   | Jumlah orang yang ikut |
-| status         | ENUM('pending','paid','cancelled','done') | Status pemesanan       |
-| created\_at    | TIMESTAMP                                 | Tanggal dibuat         |
-| updated\_at    | TIMESTAMP                                 | Tanggal diperbarui     |
+
+| Field          | Tipe Data                                 | Deskripsi                    |
+| -------------- | ----------------------------------------- | ---------------------------- |
+| id             | BIGINT                                    | ID unik pemesanan            |
+| user\_id       | BIGINT                                    | FK ke tabel users            |
+| package\_id    | BIGINT                                    | FK ke tabel packages         |
+| travel\_date   | DATE                                      | Tanggal keberangkatan        |
+| total\_persons | INTEGER                                   | Jumlah orang yang ikut       |
+| status         | ENUM('pending','paid','cancelled','done') | Status pemesanan             |
+| created\_at    | TIMESTAMP                                 | Tanggal pemesanan dibuat     |
+| updated\_at    | TIMESTAMP                                 | Tanggal pemesanan diperbarui |
 
 6. Tabel Payments (Pembayaran)
-| Field         | Tipe Data                             | Deskripsi                    |
-| ------------- | ------------------------------------- | ---------------------------- |
-| id            | BIGINT                                | ID unik pembayaran           |
-| booking\_id   | BIGINT                                | FK ke bookings               |
-| payment\_date | DATETIME                              | Tanggal pembayaran           |
-| amount        | DECIMAL(10,2)                         | Jumlah yang dibayar          |
-| proof\_image  | VARCHAR(255)                          | Path gambar bukti pembayaran |
-| status        | ENUM('pending','verified','rejected') | Status verifikasi oleh CS    |
-| verified\_by  | BIGINT                                | FK ke users (khusus role CS) |
-| created\_at   | TIMESTAMP                             | Tanggal dibuat               |
-| updated\_at   | TIMESTAMP                             | Tanggal diperbarui           |
+
+| Field         | Tipe Data                             | Deskripsi                     |
+| ------------- | ------------------------------------- | ----------------------------- |
+| id            | BIGINT                                | ID unik pembayaran            |
+| booking\_id   | BIGINT                                | FK ke tabel bookings          |
+| payment\_date | DATETIME                              | Tanggal pembayaran            |
+| amount        | DECIMAL(10,2)                         | Jumlah yang dibayar           |
+| proof\_image  | VARCHAR(255)                          | Path gambar bukti pembayaran  |
+| status        | ENUM('pending','verified','rejected') | Status verifikasi oleh CS     |
+| verified\_by  | BIGINT                                | FK ke users (khusus role CS)  |
+| created\_at   | TIMESTAMP                             | Tanggal pembayaran dibuat     |
+| updated\_at   | TIMESTAMP                             | Tanggal pembayaran diperbarui |
 
 Jenis Relasi Dan tabel yang berelasi
 1.  Relasi: One-to-Many (1:N)
