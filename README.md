@@ -1,40 +1,158 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Judul : Sistem Portal Travel & Wisata Lokal.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Nama : Luh Ayu Ariantini
+NIM : D0223004
 
-## About Laravel
+Framework Web Based
+2025
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Proyek ini adalah sistem berbasis web menggunakan framework Laravel yang digunakan untuk memesan paket wisata lokal secara online. Sistem ini dibangun agar pengguna dapat melihat dan memesan paket perjalanan, serta melakukan pembayaran, sementara admin dan customer service dapat mengelola dan memverifikasi proses tersebut.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Penjelasan Role
+1. Admin: Pengelola utama sistem: CRUD data master (paket, destinasi, pengguna), verifikasi pembayaran
+2. Customer Service (CS):	Verifikasi pembayaran, bantu pelanggan, ubah status booking
+3. User (Wisatawan): Melihat paket wisata, melakukan booking, upload bukti pembayaran, cek status
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. Fitur Utama (Akses untuk semua role):
+* Autentikasi Pengguna
+Sistem menyediakan halaman login dan registrasi agar pengguna dapat memiliki akun pribadi. Saat registrasi, pengguna akan otomatis mendapat role sebagai "User" biasa. Dengan autentikasi, data pengguna dapat disimpan dan dilindungi, serta tindakan seperti booking dan upload pembayaran hanya bisa dilakukan oleh pengguna yang sudah login.
 
-## Learning Laravel
+* Landing Page Publik
+Tampilan awal website menampilkan daftar semua paket wisata yang tersedia. Pengunjung (baik login atau belum) dapat melihat foto, harga, durasi, serta daftar destinasi dari setiap paket. Ini memberi gambaran umum sebelum pengguna memutuskan untuk mendaftar dan memesan.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+* kontak & Informasi
+Website menyediakan halaman kontak atau footer yang menampilkan informasi layanan pelanggan, alamat kantor travel, email, dan nomor telepon untuk komunikasi langsung.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+2. Fitur untuk User (Wisatawan)
+* Lihat & jelajahi paket wisata
+Setelah login, user bisa menjelajahi semua paket wisata yang telah dibuat admin. Mereka dapat melihat detail seperti: Nama paket, Deskripsi, Harga per orang, Lama perjalanan, Daftar destinasi yang termasuk.
+* pemesanan / Booking
+User dapat memesan paket wisata yang diinginkan dengan mengisi jumlah peserta dan memilih tanggal keberangkatan. Data pemesanan akan tersimpan di database dan bisa dilihat kembali di profil user.
+* upload bukti pembayaran 
+Setelah memesan, user akan diberi instruksi untuk melakukan transfer pembayaran ke rekening perusahaan. Setelah transfer, mereka dapat mengunggah bukti pembayaran (file gambar atau PDF). Bukti ini akan diverifikasi oleh Customer Service.
+* Lihat Riwayat & Status pemesanan.
+User dapat melihat daftar semua pemesanan mereka, beserta statusnya: Menunggu Pembayaran, Menunggu Verifikasi, Diterima, Ditolak, Selesai.
+Hal ini membuat pengalaman pengguna lebih transparan dan profesional.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+3. Fitur untuk customer Service (CS)
+* verifikasi pembayaran
+CS memiliki akses untuk melihat semua bukti transfer yang diunggah oleh user. CS bertugas memverifikasi apakah bukti itu valid (misal: jumlah sesuai, rekening benar). Jika valid, status pembayaran diubah menjadi “Diterima”, dan jika tidak, menjadi “Ditolak”.
+* update status pemesanan
+Setelah pembayaran diverifikasi, CS juga bertugas memperbarui status pemesanan. Misalnya, setelah perjalanan selesai, pemesanan bisa diubah menjadi “Selesai” atau “Dibatalkan” jika user tidak melakukan pembayaran tepat waktu.
+* melihat daftar booking
+CS bisa melihat semua data pemesanan yang dilakukan user, agar bisa menyesuaikan verifikasi dan koordinasi.
 
-## Laravel Sponsors
+4. fitur untuk admin
+* manajemen paket wisata
+Admin bisa membuat, mengedit, dan menghapus paket wisata melalui halaman dashboard. Saat membuat paket, admin harus menentukan: Nama paket, Harga per orang, Deskripsi. Durasi, Relasi ke destinasi wisata (bisa lebih dari satu).
+Admin juga bisa menambahkan jadwal khusus untuk tanggal keberangkatan tertentu jika sistem ingin dibuat lebih fleksibel.
+* manajemen destinasi
+Sebelum membuat paket, admin harus terlebih dahulu membuat daftar destinasi (misalnya: Pantai Kuta, Candi Borobudur, Danau Toba). Setiap paket wisata kemudian bisa mengaitkan beberapa destinasi. Admin bisa menambah/edit/hapus destinasi sesuai kebutuhan promosi.
+* manajemen pengguna & role
+Admin bisa melihat semua pengguna yang telah terdaftar, termasuk role mereka (user, CS, atau admin). Admin juga bisa mengubah role jika misalnya ingin menambahkan CS baru dari user biasa.
+* laporan dan monitoring
+Admin dapat mengakses rekap data pemesanan dan pembayaran, misalnya: Jumlah booking per bulan, Jumlah pembayaran berhasil dan gagal, Total pemasukan per bulan
+Fitur ini membantu pengambilan keputusan bisnis.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Tabel Database, Field, dan Relasi
+1. tabel user
+| Field       | Tipe Data     | Keterangan            |
+| ----------- | ------------- | --------------------- |
+| id          | bigIncrements | Primary Key           |
+| name        | string        | Nama lengkap pengguna |
+| email       | string        | Email pengguna (unik) |
+| password    | string        | Password terenkripsi  |
+| role        | enum          | 'admin', 'cs', 'user' |
+| created\_at | timestamp     | Timestamp             |
+| updated\_at | timestamp     | Timestamp             |
+
+2. Tabel Destinasi
+| Field       | Tipe Data    | Deskripsi                        |
+| ----------- | ------------ | -------------------------------- |
+| id          | BIGINT       | ID unik destinasi                |
+| name        | VARCHAR(255) | Nama tempat wisata               |
+| location    | VARCHAR(255) | Lokasi destinasi                 |
+| description | TEXT         | Deskripsi tempat                 |
+| image       | VARCHAR(255) | URL atau path gambar destinasi   |
+| created\_at | TIMESTAMP    | Tanggal data dibuat              |
+| updated\_at | TIMESTAMP    | Tanggal data terakhir diperbarui |
+
+3. Tabel Paket Wisata
+| Field          | Tipe Data     | Deskripsi                |
+| -------------- | ------------- | ------------------------ |
+| id             | BIGINT        | ID unik paket            |
+| title          | VARCHAR(255)  | Judul/nama paket         |
+| description    | TEXT          | Deskripsi paket          |
+| price          | DECIMAL(10,2) | Harga per orang          |
+| duration\_days | INTEGER       | Durasi wisata dalam hari |
+| image          | VARCHAR(255)  | Gambar ilustrasi paket   |
+| created\_at    | TIMESTAMP     | Waktu dibuat             |
+| updated\_at    | TIMESTAMP     | Waktu diubah             |
+
+4. Tabel Package_Destination (Pivot Paket ↔ Destinasi)
+| Field           | Tipe Data | Deskripsi                |
+| --------------- | --------- | ------------------------ |
+| id              | BIGINT    | ID unik                  |
+| package\_id     | BIGINT    | FK ke tabel packages     |
+| destination\_id | BIGINT    | FK ke tabel destinations |
+
+5. Tabel Bookings (Pemesanan)
+| Field          | Tipe Data                                 | Deskripsi              |
+| -------------- | ----------------------------------------- | ---------------------- |
+| id             | BIGINT                                    | ID unik pemesanan      |
+| user\_id       | BIGINT                                    | FK ke users            |
+| package\_id    | BIGINT                                    | FK ke packages         |
+| travel\_date   | DATE                                      | Tanggal keberangkatan  |
+| total\_persons | INTEGER                                   | Jumlah orang yang ikut |
+| status         | ENUM('pending','paid','cancelled','done') | Status pemesanan       |
+| created\_at    | TIMESTAMP                                 | Tanggal dibuat         |
+| updated\_at    | TIMESTAMP                                 | Tanggal diperbarui     |
+
+6. Tabel Payments (Pembayaran)
+| Field         | Tipe Data                             | Deskripsi                    |
+| ------------- | ------------------------------------- | ---------------------------- |
+| id            | BIGINT                                | ID unik pembayaran           |
+| booking\_id   | BIGINT                                | FK ke bookings               |
+| payment\_date | DATETIME                              | Tanggal pembayaran           |
+| amount        | DECIMAL(10,2)                         | Jumlah yang dibayar          |
+| proof\_image  | VARCHAR(255)                          | Path gambar bukti pembayaran |
+| status        | ENUM('pending','verified','rejected') | Status verifikasi oleh CS    |
+| verified\_by  | BIGINT                                | FK ke users (khusus role CS) |
+| created\_at   | TIMESTAMP                             | Tanggal dibuat               |
+| updated\_at   | TIMESTAMP                             | Tanggal diperbarui           |
+
+Jenis Relasi Dan tabel yang berelasi
+1.  Relasi: One-to-Many (1:N)
+a. User ↔ Booking
+* Satu user bisa membuat banyak booking.
+* Tapi satu booking hanya dimiliki oleh satu user.
+b. Paket wisata ↔ Booking
+* Satu paket wisata bisa dipesan dalam banyak booking.
+* Tapi satu booking hanya terkait dengan satu paket wisata.
+c. User ↔ Payments
+* Satu user bisa melakukan banyak pembayaran.
+* Satu pembayaran dilakukan oleh satu user.
+d. Booking ↔ Payments
+* Satu booking bisa memiliki satu atau lebih pembayaran, tapi biasanya satu pembayaran mewakili satu booking.
+
+2. Relasi: Many-to-Many (N:N)
+a. Packages ↔ Destinations
+* Satu paket bisa mencakup banyak destinasi.
+* Satu destinasi bisa masuk ke banyak paket wisata.
+* Dihubungkan oleh tabel pivot: package_destination.
+
+Ringkasan Tabel dan Relasinya
+| Tabel          | Relasi Dengan                    | Jenis Relasi |
+| -------------- | -------------------------------- | ------------ |
+| `users`        | `bookings`, `payments`           | One-to-Many  |
+| `packages`     | `bookings`                       | One-to-Many  |
+| `packages`     | `destinations` via pivot         | Many-to-Many |
+| `destinations` | `packages` via pivot             | Many-to-Many |
+| `bookings`     | `payments`                       | One-to-Many  |
+| `users`        | `bookings.handled_by` (opsional) | One-to-Many  |
+
 
 ### Premium Partners
-
 - **[Vehikl](https://vehikl.com/)**
 - **[Tighten Co.](https://tighten.co)**
 - **[WebReinvent](https://webreinvent.com/)**
@@ -50,15 +168,12 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[OP.GG](https://op.gg)**
 
 ## Contributing
-
 Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
 ## Code of Conduct
-
 In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
 ## Security Vulnerabilities
-
 If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
 ## License
